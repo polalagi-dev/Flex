@@ -1,2 +1,1 @@
-# Flex
-Simple and lightweight UI framework for Roblox.
+![Flex](FlexLandscape.png)
