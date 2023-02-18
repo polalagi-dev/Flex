@@ -5,7 +5,7 @@ local element = {}
 
 element.__index=element
 
-function element.new(className,options,coreProperties,parent,name)
+function element.new(className,options,coreProperties,coreHoverProperties,parent,name)
 	assert(options,"[Flex] [Element] Options are required.")
 	local self={}
 	
@@ -15,12 +15,15 @@ function element.new(className,options,coreProperties,parent,name)
 	local positionExists=options["Position"]~=nil
 	local styleExists=options["Props"]~=nil
 	local effectExists=options["Effect"]~=nil
+	local hoverStylingExists=options["HoverProps"]~=nil
 	
 	self.className=className
 	self.size=sizeExists and options["Size"] or UDim2.fromScale(0.1,0.1)
 	self.position=positionExists and options["Position"] or UDim2.fromScale(0,0)
 	self.styling=styleExists and options["Props"] or {}
 	self.coreStyling=coreProperties
+	self.coreHoverStyling=coreHoverProperties
+	self.hoverStyling=hoverStylingExists and options["HoverProps"] or {}
 	self.parent=parent or "UseRoot"
 	self.name=name
 	self.id=options["Id"] or options["Identifier"]
@@ -36,6 +39,32 @@ function element.new(className,options,coreProperties,parent,name)
 		obj.Size=self.size
 		obj.Position=self.position
 		obj.BorderSizePixel=0
+		obj.MouseEnter:Connect(function()
+			for key,value in pairs(self.coreHoverStyling) do
+				obj[key]=value
+			end
+			for k,v in pairs(self.hoverStyling) do
+				obj[k]=v
+			end
+		end)
+		obj.MouseLeave:Connect(function()
+			for key,value in pairs(self.coreStyling) do
+				obj[key]=value
+			end
+			for k,v in pairs(self.styling or {}) do
+				obj[k]=v
+			end
+		end)
+		if self.className=="TextButton" then
+			obj.MouseButton1Down:Connect(function()
+				for key,value in pairs(self.coreStyling) do
+					obj[key]=value
+				end
+				for k,v in pairs(self.styling or {}) do
+					obj[k]=v
+				end
+			end)
+		end
 		for key,value in pairs(self.coreStyling) do
 			obj[key]=value
 		end
