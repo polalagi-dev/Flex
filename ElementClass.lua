@@ -34,6 +34,7 @@ function element.new(className,options,coreProperties,coreHoverProperties,parent
 	self.new=nil
 	
 	function self:render()
+		assert(not self.rendered,"[Flex] [Element] An element can only be rendered once.")
 		self.rendered=true
 		local obj=Instance.new(self.className)
 		obj.Size=self.size
