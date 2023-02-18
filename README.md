@@ -4,7 +4,7 @@
 
 ---
 
-To get Flex, paste this into the Roblox Studio command line
+To get Flex, paste this into the Roblox Studio command line.
 
 ```lua
 local folder=Instance.new("Folder",game.StarterPlayer.StarterPlayerScripts)
