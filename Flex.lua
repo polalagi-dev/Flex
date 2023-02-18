@@ -12,7 +12,8 @@ local flex = {
 			TextWrapped=true,
 			TextTruncate=Enum.TextTruncate.AtEnd,
 			TextSize=25,
-			TextColor3=Color3.fromRGB(255,255,255)
+			TextColor3=Color3.fromRGB(255,255,255),
+			AutoButtonColor=false,
 		},
 		["Body"]={
 			BackgroundColor3=Color3.fromRGB(40,40,40)
@@ -33,6 +34,14 @@ local flex = {
 		["Image"]={
 			BackgroundColor3=Color3.fromRGB(40,40,40),
 			BackgroundTransparency=1
+		},
+		["ScrollBody"]={
+			BackgroundColor3=Color3.fromRGB(40,40,0)
+		}
+	},
+	DefaultHoverProps={
+		["Button"]={
+			BackgroundColor3=Color3.fromRGB(0, 145, 255)
 		}
 	},
 	elements={},
@@ -42,6 +51,7 @@ local flex = {
 		["Body"]="Frame",
 		["Text"]="TextLabel",
 		["Image"]="ImageLabel",
+		["ScrollBody"]="ScrollingFrame",
 	},
 	displayTypeMapping = {
 		["Screen"]="ScreenGui",
@@ -81,6 +91,8 @@ type Options = {
 
 type Effect = "ListLayout" | "GridLayout" | "TableLayout" | "PageLayout" | "AspectRatioConstraint" | "SizeConstraint" | "TextSizeConstraint" | "Gradient" | "Stroke" | "Corner" | "Padding" | "Scale"
 
+type UIEffect = UIListLayout | UIGridLayout | UITableLayout | UIPageLayout | UIAspectRatioConstraint | UISizeConstraint | UITextSizeConstraint | UIGradient | UIStroke | UICorner | UIPadding | UIScale
+
 function flex.create(internalName,options: Options)
 	assert(flex.classMapping[internalName],`[Flex] [Library] {internalName} is not a valid class.`)
 	assert(not flex.getElementById(options["Id"] or options["Identifier"]),`[Flex] [Library] Object with identifier "{options["Id"] or options["Identifier"]}" already exists.`)
@@ -90,6 +102,7 @@ function flex.create(internalName,options: Options)
 		flex.classMapping[internalName],
 		options,
 		flex.DefaultProps[internalName] or {},
+		flex.DefaultHoverProps[internalName] or {},
 		options["Parent"] or nil,
 		http:GenerateGUID(false)
 	)
@@ -157,7 +170,7 @@ function flex.onMount(callback)
 	table.insert(flex._mountCallback,callback)
 end
 
-function flex.applyEffect(effectName: Effect,props: UIComponent,parent)
+function flex.applyEffect(effectName: Effect,props: UIEffect,parent)
 	assert(flex.effectMapping[effectName],`[Flex] [Library] {effectName} is not a valid effect name.`)
 	local effectClass=flex.effectMapping[effectName]
 	local isPropsNil=props==nil
