@@ -11,8 +11,8 @@ local folder = Instance.new("Folder",game.StarterPlayer.StarterPlayerScripts)
 local flex = Instance.new("ModuleScript",folder)
 local elementClass = Instance.new("ModuleScript",flex)
 local http = game:GetService("HttpService")
-flex.Source = http:GetAsync("http://raw.githubusercontent.com/polalagi-dev/Flex/main/Flex.lua")
-elementClass.Source = http:GetAsync("http://raw.githubusercontent.com/polalagi-dev/Flex/main/ElementClass.lua")
+flex.Source = http:GetAsync("http://raw.githubusercontent.com/polalagi-dev/Flex/main/src/Flex.lua")
+elementClass.Source = http:GetAsync("http://raw.githubusercontent.com/polalagi-dev/Flex/main/src/ElementClass.lua")
 flex.Name = "Flex"
 elementClass.Name = "ElementClass"
 folder.Name = "FlexWorkspace"
@@ -27,11 +27,31 @@ warn("[Flex] [Command] Flex added in "..folder.Name.." in StarterPlayerScripts."
 
   Returns an Element. _(Use Flex.getElementById instead)_
 
+  Example usage
+
+  ```lua
+  Flex.create("Button",{
+    Position = UDim2.fromScale(0.5, 0.5),
+    Size = UDim2.fromScale(0.25, 0.1),
+    Id = "MainButton",
+    Parent = "UseRoot",
+    Props = {}
+  })
+  ```
+
 - `Flex.render(parent: PlayerGui | Instance, displayType: "Screen" | "Billboard" | "Surface", displayProps: table)`
 
   Render the GUI.
 
   Any FlexUI can only be rendered **ONCE**.
+
+  Example usage
+
+  ```lua
+  Flex.render(player.PlayerGui, "Screen" , {
+    IgnoreGuiInset=true
+  })
+  ```
 
 - `Flex.onMount(callback: (FlexUI: GuiBase) -> (any))`
 
@@ -39,16 +59,50 @@ warn("[Flex] [Command] Flex added in "..folder.Name.." in StarterPlayerScripts."
 
   All of the registered `onMount` callbacks will be fired once the GUI is rendered.
 
+  Example usage
+
+  ```lua
+  Flex.onMount(function(FlexUI: GuiBase)
+    print(FlexUI.Name)
+  end)
+  ```
+
 - `Flex.getElementById(id: string)`
 
   If there is an element with the given `id`, it returns the Element, else it returns nil.
 
+  Example usage
+
+  ```lua
+  local MainButton = Flex.getElementById("MainButton")
+  ```
+
 - `Flex.getObjectById(id: string)`
 
   If there is an element with the given `id`, it returns the `GuiObject`, else it returns nil.
+
+  Example usage
+
+  ```lua
+  local MainButtonObject = Flex.getObjectById("MainButton")
+  ```
 
 - `Flex.applyEffect(effectName: Effect, props: UIEffect)`
 
   To be used in the options of `Flex.create` as the `Effect` key.
 
   Applies an effect to the element.
+
+  Example usage
+
+  ```lua
+  Flex.create("Button",{
+    -- Options
+    Effect = Flex.applyEffect("Stroke",{
+        LineJoinMode = Enum.LineJoinMode.Round,
+        ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+        Thickness = 5,
+        Color = Color3.fromRGB(70,70,70)
+    })
+  })
+  ```
