@@ -120,7 +120,7 @@ function flex.render(parent: PlayerGui | Instance,displayType: "Screen" | "Billb
 	local displayClass=flex.displayTypeMapping[displayType] or displayType
 	displayProps=if displayProps~=nil or #displayProps>0 then displayProps else {}
 	local main=Instance.new(displayClass)
-	main.Name=`FlexGUI@{displayType}`
+	main.Name="FlexGUI@"..displayType
 	for k,v in pairs(displayProps) do
 		main[k]=v
 	end
