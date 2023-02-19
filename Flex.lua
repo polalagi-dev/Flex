@@ -93,7 +93,7 @@ type Effect = "ListLayout" | "GridLayout" | "TableLayout" | "PageLayout" | "Aspe
 
 type UIEffect = UIListLayout | UIGridLayout | UITableLayout | UIPageLayout | UIAspectRatioConstraint | UISizeConstraint | UITextSizeConstraint | UIGradient | UIStroke | UICorner | UIPadding | UIScale
 
-function flex.create(internalName,options: Options)
+function flex.create(internalName: string,options: Options)
 	assert(flex.classMapping[internalName],`[Flex] [Library] {internalName} is not a valid class.`)
 	assert(not flex.getElementById(options["Id"] or options["Identifier"]),`[Flex] [Library] Object with identifier "{options["Id"] or options["Identifier"]}" already exists.`)
 	assert(options["Id"] or options["Identifier"],"[Flex] [Library] An ID is required for an element.")
@@ -109,7 +109,7 @@ function flex.create(internalName,options: Options)
 	table.insert(flex.elements,element)
 end
 
-function flex.render(parent,displayType,displayProps)
+function flex.render(parent: PlayerGui | Instance,displayType: "Screen" | "Billboard" | "Surface",displayProps)
 	if flex._rendered then
 		warn("[Flex] [Library] You cannot render the GUI twice.")
 		return
@@ -151,7 +151,7 @@ function flex.render(parent,displayType,displayProps)
 end
 
 function flex.getElementById(id: string)
-	local target
+	local target=nil
 	for _,element in pairs(flex.elements) do
 		if element.id==id then
 			target=element
@@ -163,14 +163,14 @@ end
 
 function flex.getObjectById(id: string)
 	local element=flex.getElementById(id)
-	return element.obj
+	return element~=nil and element.obj or nil
 end
 
-function flex.onMount(callback)
+function flex.onMount(callback: (GuiBase) -> (any))
 	table.insert(flex._mountCallback,callback)
 end
 
-function flex.applyEffect(effectName: Effect,props: UIEffect,parent)
+function flex.applyEffect(effectName: Effect,props: UIEffect)
 	assert(flex.effectMapping[effectName],`[Flex] [Library] {effectName} is not a valid effect name.`)
 	local effectClass=flex.effectMapping[effectName]
 	local isPropsNil=props==nil
