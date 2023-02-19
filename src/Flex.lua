@@ -84,7 +84,9 @@ type Options = {
 	Size: UDim2?,
 	Props: any?,
 	Id: string?,
+	Identifier: string?,
 	Parent: string?,
+	Effect: any?,
 	[any?]: any?,
 }
 
