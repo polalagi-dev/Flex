@@ -1,10 +1,19 @@
+<div style="text-align: center;">
+
 <img src="Assets/FlexLandscape.png" alt="Flex" width="512px">
 
 ### Flex - Simple and lightweight UI Framework for ROBLOX.
 
-## ![GitHub repo size](https://img.shields.io/github/repo-size/polalagi-dev/Flex?label=Flex%20Size%20%28approx.%29&logo=roblox)
+</div>
 
+<div style="text-align: center;">
+
+![GitHub repo size](https://img.shields.io/github/repo-size/polalagi-dev/Flex?label=Flex%20Size%20%28approx.%29&logo=roblox)
 ![GitHub repo file count (file extension)](https://img.shields.io/github/directory-file-count/polalagi-dev/Flex/src?extension=lua&label=Flex%20Source%20Files&logo=Roblox&type=file)
+
+</div>
+
+---
 
 To get Flex, paste this into the Roblox Studio command line.
 
