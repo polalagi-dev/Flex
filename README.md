@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="assets/FlexLandscape.png" alt="Flex" width="512px">
+  <img src="assets/FlexLandscapeImage.png" alt="Flex" width="512px">
 
   <h3>Flex - Simple and lightweight UI Framework for ROBLOX.</h3>
 
