@@ -119,7 +119,7 @@ warn("[Flex] [Command] Flex added in "..folder.Name.." in StarterPlayerScripts."
   })
   ```
 
-  - `Flex.createComponent(component: any, options: Options)`
+- `Flex.createComponent(component: any, options: Options)`
 
   Create an component.
 
