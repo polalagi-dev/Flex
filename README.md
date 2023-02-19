@@ -118,3 +118,7 @@ warn("[Flex] [Command] Flex added in "..folder.Name.." in StarterPlayerScripts."
     })
   })
   ```
+
+## License
+
+Flex is licensed under the Apache 2.0 license. See [LICENSE](/LICENSE) for more details.
