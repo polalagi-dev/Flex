@@ -111,6 +111,20 @@ function flex.create(internalName: string,options: Options)
 	table.insert(flex.elements,element)
 end
 
+function flex.createComponent(component,options: Options)
+	assert(not flex.getElementById(options["Id"] or options["Identifier"]),"[Flex] [Library] Object with identifier \""..(options["Id"] or options["Identifier"]).."\" already exists.")
+	assert(options["Id"] or options["Identifier"],"[Flex] [Library] An ID is required for an element.")
+	assert((options["Id"] or options["Identifier"])~="UseRoot","[Flex] [Library] \"UseRoot\" is not allowed as an identifier.")
+	assert(not (options["Id"] and options["Identifier"]),"[Flex] [Library] Please choose only one field - \"Id or Identifier\" - Both fields are not allowed.")
+	local element=elementClass.newComponent(
+		component,
+		options,
+		options["Parent"] or nil,
+		http:GenerateGUID(false)
+	)
+	table.insert(flex.elements,element)
+end
+
 function flex.render(parent: PlayerGui | Instance,displayType: "Screen" | "Billboard" | "Surface",displayProps)
 	if flex._rendered then
 		warn("[Flex] [Library] You cannot render the GUI twice.")

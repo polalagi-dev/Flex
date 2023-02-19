@@ -32,6 +32,7 @@ function element.new(className,options,coreProperties,coreHoverProperties,parent
 	self.effect=effectExists and options["Effect"] or nil
 	self.obj=nil
 	self.new=nil
+	self.newComponent=nil
 	
 	function self:render()
 		assert(not self.rendered,"[Flex] [Element] An element can only be rendered once.")
@@ -85,6 +86,45 @@ function element.new(className,options,coreProperties,coreHoverProperties,parent
 		end
 		self.obj=obj
 		return obj
+	end
+	
+	return self
+end
+
+function element.newComponent(component,options,parent,name)
+	assert(options,"[Flex] [Element] Options are required.")
+	assert(component,"[Flex] [Element] The component is a required argument.")
+	local self={}
+	
+	setmetatable(self,element)
+	
+	local sizeExists=options["Size"]~=nil
+	local positionExists=options["Position"]~=nil
+	local styleExists=options["Props"]~=nil
+	local effectExists=options["Effect"]~=nil
+	local hoverStylingExists=options["HoverProps"]~=nil
+	
+	self.component=component
+	self.size=sizeExists and options["Size"] or UDim2.fromScale(0.1,0.1)
+	self.position=positionExists and options["Position"] or UDim2.fromScale(0,0)
+	self.styling=styleExists and options["Props"] or {}
+	self.coreStyling=component.coreProperties
+	self.coreHoverStyling=component.coreHoverProperties
+	self.hoverStyling=hoverStylingExists and options["HoverProps"] or {}
+	self.parent=parent or "UseRoot"
+	self.name=name
+	self.id=options["Id"] or options["Identifier"]
+	assert(self.id,"[Flex] [Element] An ID for the element is required.")
+	self.rendered=false
+	self.effect=effectExists and options["Effect"] or nil
+	self.obj=nil
+	self.new=nil
+	self.newComponent=nil
+
+	function self:render()
+		assert(not self.rendered,"[Flex] [Element] An component can only be rendered once.")
+		self.rendered=true
+		self.obj=self.component:render(self)
 	end
 	
 	return self
