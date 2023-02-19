@@ -75,6 +75,7 @@ warn("[Flex] [Command] Flex added in "..folder.Name.." in StarterPlayerScripts."
   ```lua
   Flex.onMount(function(FlexUI: GuiBase)
     print(FlexUI.Name)
+    return
   end)
   ```
 
