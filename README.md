@@ -13,6 +13,8 @@
 
 To get Flex, paste this into the Roblox Studio command line.
 
+##### Make sure you have HTTP Requests enabled.
+
 ```lua
 local folder = Instance.new("Folder",game.StarterPlayer.StarterPlayerScripts)
 local flex = Instance.new("ModuleScript",folder)
