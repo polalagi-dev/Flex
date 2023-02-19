@@ -95,10 +95,11 @@ type Effect = "ListLayout" | "GridLayout" | "TableLayout" | "PageLayout" | "Aspe
 type UIEffect = UIListLayout | UIGridLayout | UITableLayout | UIPageLayout | UIAspectRatioConstraint | UISizeConstraint | UITextSizeConstraint | UIGradient | UIStroke | UICorner | UIPadding | UIScale
 
 function flex.create(internalName: string,options: Options)
-	assert(flex.classMapping[internalName],`[Flex] [Library] {internalName} is not a valid class.`)
-	assert(not flex.getElementById(options["Id"] or options["Identifier"]),`[Flex] [Library] Object with identifier "{options["Id"] or options["Identifier"]}" already exists.`)
+	assert(flex.classMapping[internalName],"[Flex] [Library] \""..internalName.."\" is not a valid class.")
+	assert(not flex.getElementById(options["Id"] or options["Identifier"]),"[Flex] [Library] Object with identifier \""..(options["Id"] or options["Identifier"]).."\" already exists.")
 	assert(options["Id"] or options["Identifier"],"[Flex] [Library] An ID is required for an element.")
 	assert((options["Id"] or options["Identifier"])~="UseRoot","[Flex] [Library] \"UseRoot\" is not allowed as an identifier.")
+	assert(not (options["Id"] and options["Identifier"]),"[Flex] [Library] Please choose only one field - \"Id or Identifier\" - Both fields are not allowed.")
 	local element=elementClass.new(
 		flex.classMapping[internalName],
 		options,
@@ -172,7 +173,7 @@ function flex.onMount(callback: (GuiBase) -> (any))
 end
 
 function flex.applyEffect(effectName: Effect,props: UIEffect)
-	assert(flex.effectMapping[effectName],`[Flex] [Library] {effectName} is not a valid effect name.`)
+	assert(flex.effectMapping[effectName],"[Flex] [Library] \""..effectName.."\" is not a valid effect name.")
 	local effectClass=flex.effectMapping[effectName]
 	local isPropsNil=props==nil
 	local customProps=props
