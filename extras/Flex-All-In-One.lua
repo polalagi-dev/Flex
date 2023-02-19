@@ -1,5 +1,5 @@
 --twitter.com/polalagi
---Script
+--ModuleScript
 
 local flex = {
 	DefaultProps={
@@ -268,3 +268,5 @@ function flex.applyEffect(effectName: Effect,props: UIEffect)
 	end
 	return effectInstance
 end
+
+return flex
