@@ -80,13 +80,12 @@ local elementClass=require(script.ElementClass)
 local http=game:GetService("HttpService")
 
 type Options = {
-	Position: UDim2,
-	Size: UDim2,
-	Props: GuiObject,
-	Id: string,
-	Identifier: string,
-	Parent: string,
-	Effect: UIComponent,
+	Position: UDim2?,
+	Size: UDim2?,
+	Props: any?,
+	Id: string?,
+	Parent: string?,
+	[any?]: any?,
 }
 
 type Effect = "ListLayout" | "GridLayout" | "TableLayout" | "PageLayout" | "AspectRatioConstraint" | "SizeConstraint" | "TextSizeConstraint" | "Gradient" | "Stroke" | "Corner" | "Padding" | "Scale"
