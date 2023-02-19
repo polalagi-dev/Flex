@@ -2,7 +2,9 @@
 
 ### Flex - Simple and lightweight UI Framework for ROBLOX.
 
----
+## ![GitHub repo size](https://img.shields.io/github/repo-size/polalagi-dev/Flex?label=Flex%20Size%20%28approx.%29&logo=roblox)
+
+![GitHub repo file count (file extension)](https://img.shields.io/github/directory-file-count/polalagi-dev/Flex/src?extension=lua&type=file)
 
 To get Flex, paste this into the Roblox Studio command line.
 
