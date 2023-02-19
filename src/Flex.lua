@@ -111,7 +111,7 @@ function flex.create(internalName: string,options: Options)
 	table.insert(flex.elements,element)
 end
 
-function flex.createComponent(component,options: Options)
+function flex.createComponent(component: any,options: Options)
 	assert(not flex.getElementById(options["Id"] or options["Identifier"]),"[Flex] [Library] Object with identifier \""..(options["Id"] or options["Identifier"]).."\" already exists.")
 	assert(options["Id"] or options["Identifier"],"[Flex] [Library] An ID is required for an element.")
 	assert((options["Id"] or options["Identifier"])~="UseRoot","[Flex] [Library] \"UseRoot\" is not allowed as an identifier.")
