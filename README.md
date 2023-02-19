@@ -44,7 +44,9 @@ warn("[Flex] [Command] Flex added in "..folder.Name.." in StarterPlayerScripts."
     Size = UDim2.fromScale(0.25, 0.1),
     Id = "MainButton",
     Parent = "UseRoot",
-    Props = {}
+    Props = {
+      AnchorPoint = Vector2.new(0.5,0.5)
+    }
   })
   ```
 
