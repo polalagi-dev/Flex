@@ -119,6 +119,30 @@ warn("[Flex] [Command] Flex added in "..folder.Name.." in StarterPlayerScripts."
   })
   ```
 
+  - `Flex.createComponent(component: any, options: Options)`
+
+  Create an component.
+
+  Returns an Component. _(Use Flex.getElementById instead)_
+
+  Example usage
+
+  ```lua
+  Flex.createComponent(SwitchComponent,{
+    Position = UDim2.fromScale(0.5, 0.5),
+    Size = UDim2.fromScale(0.25, 0.1),
+    Id = "MainSwitch",
+    Parent = "UseRoot",
+    Props = {
+      AnchorPoint = Vector2.new(0.5,0.5)
+    }
+  })
+  ```
+
+## Components
+
+_TO BE DONE_
+
 ## License
 
 Flex is licensed under the Apache 2.0 license. See [LICENSE](/LICENSE) for more details.
