@@ -1,6 +1,8 @@
 --twitter.com/polalagi
 --ModuleScript
 
+warn("[Flex] [All-In-One] The All-In-One module will be updated rarely, do not use this for your games, instead use the normal method.")
+
 local flex = {
 	DefaultProps={
 		["Button"]={
