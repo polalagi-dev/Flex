@@ -14,6 +14,8 @@ local flex = {
 			TextSize=25,
 			TextColor3=Color3.fromRGB(255,255,255),
 			AutoButtonColor=false,
+			BorderMode=Enum.BorderMode.Outline,
+			TextScaled=false
 		},
 		["Body"]={
 			BackgroundColor3=Color3.fromRGB(40,40,40)
@@ -37,6 +39,21 @@ local flex = {
 		},
 		["ScrollBody"]={
 			BackgroundColor3=Color3.fromRGB(40,40,0)
+		},
+		["Input"]={
+			BackgroundColor3=Color3.fromRGB(40,40,40),
+			BorderSizePixel=5,
+			BorderColor3=Color3.fromRGB(53,53,53),
+			FontFace=Font.fromEnum(Enum.Font.Roboto),
+			TextWrapped=true,
+			TextTruncate=Enum.TextTruncate.AtEnd,
+			TextSize=25,
+			TextColor3=Color3.fromRGB(255,255,255),
+			PlaceholderText="Type something...",
+			PlaceholderColor3=Color3.new(0.5,0.5,0.5),
+			Text="",
+			BorderMode=Enum.BorderMode.Outline,
+			TextScaled=false
 		}
 	},
 	DefaultHoverProps={
@@ -52,6 +69,7 @@ local flex = {
 		["Text"]="TextLabel",
 		["Image"]="ImageLabel",
 		["ScrollBody"]="ScrollingFrame",
+		["Input"]="TextBox"
 	},
 	displayTypeMapping = {
 		["Screen"]="ScreenGui",
@@ -186,7 +204,7 @@ function flex.onMount(callback: (GuiBase) -> (any))
 	table.insert(flex._mountCallback,callback)
 end
 
-function flex.applyEffect(effectName: Effect,props: UIEffect)
+function flex.applyEffect(effectName: Effect,props: UIEffect | any)
 	assert(flex.effectMapping[effectName],"[Flex] [Library] \""..effectName.."\" is not a valid effect name.")
 	local effectClass=flex.effectMapping[effectName]
 	local isPropsNil=props==nil

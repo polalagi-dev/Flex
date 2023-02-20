@@ -82,7 +82,13 @@ function element.new(className,options,coreProperties,coreHoverProperties,parent
 		end
 		obj.Parent=self.parent
 		if self.effect then
-			self.effect.Parent=obj
+			if typeof(self.effect)~="table" then
+				self.effect.Parent=obj
+			else
+				for _,effectObject in pairs(self.effect) do
+					effectObject.Parent=obj
+				end
+			end
 		end
 		self.obj=obj
 		return obj
