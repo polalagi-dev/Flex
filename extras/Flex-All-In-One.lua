@@ -79,6 +79,9 @@ local flex = {
 	}
 }
 
+--twitter.com/polalagi
+--ModuleScript
+
 local elementClass = {}
 
 elementClass.__index=elementClass
@@ -110,6 +113,7 @@ function elementClass.new(className,options,coreProperties,coreHoverProperties,p
 	self.effect=effectExists and options["Effect"] or nil
 	self.obj=nil
 	self.new=nil
+	self.newComponent=nil
 	
 	function self:render()
 		assert(not self.rendered,"[Flex] [Element] An element can only be rendered once.")
@@ -168,6 +172,45 @@ function elementClass.new(className,options,coreProperties,coreHoverProperties,p
 	return self
 end
 
+function elementClass.newComponent(component,options,parent,name)
+	assert(options,"[Flex] [Element] Options are required.")
+	assert(component,"[Flex] [Element] The component is a required argument.")
+	local self={}
+	
+	setmetatable(self,elementClass)
+	
+	local sizeExists=options["Size"]~=nil
+	local positionExists=options["Position"]~=nil
+	local styleExists=options["Props"]~=nil
+	local effectExists=options["Effect"]~=nil
+	local hoverStylingExists=options["HoverProps"]~=nil
+	
+	self.component=component.new(self)
+	self.size=sizeExists and options["Size"] or UDim2.fromScale(0.1,0.1)
+	self.position=positionExists and options["Position"] or UDim2.fromScale(0,0)
+	self.styling=styleExists and options["Props"] or {}
+	self.coreStyling=self.component.coreProperties
+	self.coreHoverStyling=self.component.coreHoverProperties
+	self.hoverStyling=hoverStylingExists and options["HoverProps"] or {}
+	self.parent=parent or "UseRoot"
+	self.name=name
+	self.id=options["Id"] or options["Identifier"]
+	assert(self.id,"[Flex] [Element] An ID for the element is required.")
+	self.rendered=false
+	self.effect=effectExists and options["Effect"] or nil
+	self.obj=nil
+	self.new=nil
+	self.newComponent=nil
+
+	function self:render()
+		assert(not self.rendered,"[Flex] [Element] An component can only be rendered once.")
+		self.rendered=true
+		self.obj=self.component:render()
+	end
+	
+	return self
+end
+
 local http=game:GetService("HttpService")
 
 type Options = {
@@ -196,6 +239,20 @@ function flex.create(internalName: string,options: Options)
 		options,
 		flex.DefaultProps[internalName] or {},
 		flex.DefaultHoverProps[internalName] or {},
+		options["Parent"] or nil,
+		http:GenerateGUID(false)
+	)
+	table.insert(flex.elements,element)
+end
+
+function flex.createComponent(component: any,options: Options)
+	assert(not flex.getElementById(options["Id"] or options["Identifier"]),"[Flex] [Library] Object with identifier \""..(options["Id"] or options["Identifier"]).."\" already exists.")
+	assert(options["Id"] or options["Identifier"],"[Flex] [Library] An ID is required for an element.")
+	assert((options["Id"] or options["Identifier"])~="UseRoot","[Flex] [Library] \"UseRoot\" is not allowed as an identifier.")
+	assert(not (options["Id"] and options["Identifier"]),"[Flex] [Library] Please choose only one field - \"Id or Identifier\" - Both fields are not allowed.")
+	local element=elementClass.newComponent(
+		component,
+		options,
 		options["Parent"] or nil,
 		http:GenerateGUID(false)
 	)
