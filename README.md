@@ -186,6 +186,7 @@ function component.new(data)
     obj.Parent=self.element.Parent
 
     return obj -- This return must be here, else the component won't function as intended.
+    -- If your going to render multiple objects, return the parent object of the other objects. (e.g. A frame)
   end
 end
 
