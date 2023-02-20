@@ -104,12 +104,12 @@ function element.newComponent(component,options,parent,name)
 	local effectExists=options["Effect"]~=nil
 	local hoverStylingExists=options["HoverProps"]~=nil
 	
-	self.component=component
+	self.component=component.new(self)
 	self.size=sizeExists and options["Size"] or UDim2.fromScale(0.1,0.1)
 	self.position=positionExists and options["Position"] or UDim2.fromScale(0,0)
 	self.styling=styleExists and options["Props"] or {}
-	self.coreStyling=component.coreProperties
-	self.coreHoverStyling=component.coreHoverProperties
+	self.coreStyling=self.component.coreProperties
+	self.coreHoverStyling=self.component.coreHoverProperties
 	self.hoverStyling=hoverStylingExists and options["HoverProps"] or {}
 	self.parent=parent or "UseRoot"
 	self.name=name
@@ -124,7 +124,7 @@ function element.newComponent(component,options,parent,name)
 	function self:render()
 		assert(not self.rendered,"[Flex] [Element] An component can only be rendered once.")
 		self.rendered=true
-		self.obj=self.component:render(self)
+		self.obj=self.component:render()
 	end
 	
 	return self
