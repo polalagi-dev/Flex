@@ -53,7 +53,8 @@ local flex = {
 			PlaceholderColor3=Color3.new(0.5,0.5,0.5),
 			Text="",
 			BorderMode=Enum.BorderMode.Outline,
-			TextScaled=false
+			TextScaled=false,
+			ClearTextOnFocus=false
 		}
 	},
 	DefaultHoverProps={

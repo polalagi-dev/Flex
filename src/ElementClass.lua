@@ -41,28 +41,30 @@ function element.new(className,options,coreProperties,coreHoverProperties,parent
 		obj.Size=self.size
 		obj.Position=self.position
 		obj.BorderSizePixel=0
-		obj.MouseEnter:Connect(function()
-			for key1,value1 in pairs(self.coreStyling) do
-				obj[key1]=value1
-			end
-			for key,value in pairs(self.coreHoverStyling) do
-				obj[key]=value
-			end
-			for k1,v1 in pairs(self.styling or {}) do
-				obj[k1]=v1
-			end
-			for k,v in pairs(self.hoverStyling) do
-				obj[k]=v
-			end
-		end)
-		obj.MouseLeave:Connect(function()
-			for key,value in pairs(self.coreStyling) do
-				obj[key]=value
-			end
-			for k,v in pairs(self.styling or {}) do
-				obj[k]=v
-			end
-		end)
+		if self.className=="TextButton" then
+			obj.MouseEnter:Connect(function()
+				for key1,value1 in pairs(self.coreStyling) do
+					obj[key1]=value1
+				end
+				for key,value in pairs(self.coreHoverStyling) do
+					obj[key]=value
+				end
+				for k1,v1 in pairs(self.styling or {}) do
+					obj[k1]=v1
+				end
+				for k,v in pairs(self.hoverStyling) do
+					obj[k]=v
+				end
+			end)
+			obj.MouseLeave:Connect(function()
+				for key,value in pairs(self.coreStyling) do
+					obj[key]=value
+				end
+				for k,v in pairs(self.styling or {}) do
+					obj[k]=v
+				end
+			end)
+		end
 		if self.className=="TextButton" then
 			obj.MouseButton1Down:Connect(function()
 				for key,value in pairs(self.coreStyling) do
