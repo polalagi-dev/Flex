@@ -141,7 +141,68 @@ warn("[Flex] [Command] Flex added in "..folder.Name.." in StarterPlayerScripts."
 
 ## Components
 
-_TO BE DONE_
+This is the code of a component, I won't go too much into detail on how it works since you can get a good understanding from just reading the code.
+Feel free to contribute to this section though!
+
+```lua
+--ModuleScript "LabelComponent"
+
+local component={
+  element = nil, -- Required field.
+  coreStyling = {
+    BorderSizePixel = 0,
+    BackgroundTransparency = 1,
+    TextColor3 = Color3.fromRGB(255,255,255)
+  }, -- Can be empty, but the field is required.
+  coreHoverStyling = {}, -- Can be empty, but the field is required.
+}
+
+component.__index=component
+
+function component.new(data)
+  local self={}
+
+  setmetatable(self,component)
+
+  self.element=data
+
+  self.new=nil -- Removing the new function from the component.
+
+  function self:render()
+    local obj=Instance.new("TextLabel")
+
+    -- Apply default properties
+    for key,value in pairs(self.element.coreStyling) do
+			obj[key]=value
+		end
+
+		obj.Name=self.element.name
+
+    -- Apply user-defined properties (This for loop can be removed)
+		for k,v in pairs(self.element.styling) do
+			obj[k]=v
+		end
+
+    obj.Parent=self.element.Parent
+
+    return obj -- This return must be here, else the component won't function as intended.
+  end
+end
+
+return component
+```
+
+A part of the LocalScript.
+
+```lua
+local LabelComponent = require(script.LabelComponent) -- Get the component.
+
+...
+
+Flex.createComponent(LabelComponent,{
+  ...
+}) -- Create the component with the given props.
+```
 
 ## License
 
