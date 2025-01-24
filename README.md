@@ -9,6 +9,9 @@
 
 </div>
 
+> [!WARNING]
+> Flex is not maintained anymore.
+
 ---
 
 To get Flex, paste this into the Roblox Studio command line.
